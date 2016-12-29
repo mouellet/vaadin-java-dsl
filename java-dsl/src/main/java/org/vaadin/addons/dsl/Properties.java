@@ -2,7 +2,6 @@ package org.vaadin.addons.dsl;
 
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.stream.Stream;
 
 import org.vaadin.addons.dsl.core.PropertyNode;
 
@@ -62,36 +61,10 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.Video;
 import com.vaadin.ui.Window;
 
-/**
- * Utility class with core API attributes.
- */
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public class Attributes {
+public class Properties {
 
-    private Attributes() {
-    }
-
-    /**
-     * Returns a compound attribute node. Helpful for common reusable definitions, e.g:
-     * <pre>
-     * public PropertyNode customTextField() {
-     *   return attrs(
-     *     styleName("custom-text-field"),
-     *     width(120, Unit.PIXEL)
-     *   );
-     * }
-     * ...
-     * v(TextField.class,
-     *   customTextField(),
-     *   caption("Hello"));
-     * </pre>
-     *
-     * @param nodes list of attribute nodes
-     * @return a compound node for the given attributes list
-     */
-    public static <T extends Component> PropertyNode<T> attrs(final PropertyNode<T>... nodes) {
-        return component -> Stream.of(nodes)
-                .forEach(node -> node.apply(component));
+    private Properties() {
     }
 
     /**
@@ -1722,4 +1695,5 @@ public class Attributes {
     public static PropertyNode<TextArea> wordWrap(final boolean arg1) {
         return c -> c.setWordwrap(arg1);
     }
+
 }

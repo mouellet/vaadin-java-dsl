@@ -16,7 +16,7 @@ public class ComponentNode<T extends Component> implements Node<T> {
     private Class<T> componentClass;
     private WeakReference<T> reference;
     private List<ComponentNode> children = new ArrayList<>();
-    private List<PropertyNode> attributes = new ArrayList<>();
+    private List<PropertyNode> properties = new ArrayList<>();
 
     public ComponentNode(Class<T> componentClass) {
         this.componentClass = componentClass;
@@ -29,7 +29,7 @@ public class ComponentNode<T extends Component> implements Node<T> {
                 this.children.add((ComponentNode<? extends Component>) node);
 
             } else if (node instanceof PropertyNode) {
-                this.attributes.add((PropertyNode<? extends Component>) node);
+                this.properties.add((PropertyNode<? extends Component>) node);
             }
         });
     }
@@ -51,8 +51,8 @@ public class ComponentNode<T extends Component> implements Node<T> {
         return Collections.unmodifiableList(children);
     }
 
-    public List<PropertyNode> getAttributes() {
-        return Collections.unmodifiableList(attributes);
+    public List<PropertyNode> getProperties() {
+        return Collections.unmodifiableList(properties);
     }
 
     public T get() {
@@ -63,7 +63,6 @@ public class ComponentNode<T extends Component> implements Node<T> {
 
         try {
             T component;
-            // TODO support reference instanciation
             if (node.getReference() != null) {
                 component = node.getReference().get();
             } else {
@@ -81,7 +80,7 @@ public class ComponentNode<T extends Component> implements Node<T> {
                 }
             }
 
-            node.getAttributes().forEach(attributeNode -> {
+            node.getProperties().forEach(attributeNode -> {
                 attributeNode.apply(component);
             });
 
