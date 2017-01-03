@@ -9,6 +9,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,7 +31,6 @@ import org.vaadin.addons.dsl.core.PropertyNode;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.filters.FilterChain;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -38,14 +39,13 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import com.vaadin.ui.Component;
 
-public class PropertiesGenerator extends AbstractGenerator {
+public class ListenerGenerator extends AbstractGenerator {
 
     public static void main(String[] args) throws IntrospectionException, IOException {
 
         Set<PojoClass> classes = PojoClassFactory
                 .enumerateClassesByExtendingType("com.vaadin", Component.class,
                     new FilterChain(
-                            filterComponentContainers(),
                             filterExcludedClasses(),
                             filterNonConcreteClasses(),
                             filterDeprecatedClasses(),
@@ -57,6 +57,11 @@ public class PropertiesGenerator extends AbstractGenerator {
             return new CompareToBuilder()
                     .append(o1.getName(), o2.getName())
                     .append(o1.getParameterCount(), o2.getParameterCount())
+                    .append(o1.getParameterTypes(), o2.getParameterTypes(), (Comparator<Class<?>>) (p1, p2) -> {
+                        return new CompareToBuilder()
+                                .append(p1.getName(), p2.getName())
+                                .toComparison();
+                    })
                     .toComparison();
         });
 
@@ -64,7 +69,7 @@ public class PropertiesGenerator extends AbstractGenerator {
             BeanInfo beanInfo = Introspector.getBeanInfo(pojoClass.getClazz());
             Arrays.asList(beanInfo.getMethodDescriptors()).forEach(method -> {
                 String methodName = method.getName();
-                if (methodName.startsWith("set")) {
+                if (methodName.startsWith("add") && methodName.endsWith("Listener") && !methodName.equals("addListener")) {
                     Method declaringMethod = findOriginallyDeclaredMethod(method.getMethod());
                     if (methodMap.get(declaringMethod) == null) {
                         methodMap.put(declaringMethod, new TreeSet<>(new SuperclassFirstComparator()));
@@ -76,15 +81,14 @@ public class PropertiesGenerator extends AbstractGenerator {
 
         List<MethodSpec> methodSpecs = methodMap.entrySet()
                 .stream()
-                .map(PropertiesGenerator::buildPropertySetterMethodSpec)
+                .map(ListenerGenerator::buildOnListenerMethodSpec)
                 .filter(method -> method != null)
                 .sorted((e1, e2) -> e1.name.compareTo(e2.name))
                 .collect(Collectors.toList());
 
         TypeSpec.Builder typeSpecBuilder = TypeSpec
-                .classBuilder("Properties")
+                .classBuilder("Listeners")
                 .addModifiers(Modifier.PUBLIC)
-                .addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "{$S, $S}", "rawtypes", "unchecked").build())
                 .addMethod(MethodSpec.constructorBuilder()
                         .addModifiers(Modifier.PRIVATE)
                         .build())
@@ -97,14 +101,13 @@ public class PropertiesGenerator extends AbstractGenerator {
         javaFile.writeTo(new File("src/main/java"));
     }
 
-    private static MethodSpec buildPropertySetterMethodSpec(Entry<Method, Set<Class<?>>> entry) {
+    private static MethodSpec buildOnListenerMethodSpec(Entry<Method, Set<Class<?>>> entry) {
         Method method = entry.getKey();
         if (method.isAnnotationPresent(Deprecated.class)) {
             return null;
         }
-
         MethodSpec.Builder methodSpecBuilder = MethodSpec
-                .methodBuilder(propertyPlainName(method.getName()))
+                .methodBuilder(listenerPlainName(method))
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC);
 
         Class<?> typeVariableClass = entry.getValue().iterator().next();
@@ -153,8 +156,42 @@ public class PropertiesGenerator extends AbstractGenerator {
         return originallyDeclaredMethod != null ? originallyDeclaredMethod : method;
     }
 
-    private static String propertyPlainName(String name) {
-        return Introspector.decapitalize(StringUtils.substring(name, 3));
+    private static String listenerPlainName(Method method) {
+        String optionalComponentRef = "";
+
+        if (method.getParameterCount() == 1) {
+            Parameter param = method.getParameters()[0];
+            String paramTypeName = param.getType().getName();
+            if (paramTypeName.contains("Button")) {
+                optionalComponentRef = "Button";
+
+            } else if (paramTypeName.contains("Mouse")) {
+                optionalComponentRef = "Mouse";
+
+            } else if (paramTypeName.contains("Grid")) {
+                optionalComponentRef = "Grid";
+
+            } else if (paramTypeName.contains("Table")) {
+                optionalComponentRef = "Table";
+            }
+        }
+
+        return "on" + optionalComponentRef + StringUtils.substring(method.getName(), 3).replace("Listener", "");
+    }
+
+    @SuppressWarnings("unused")
+    private static Set<Method> isConflictingMethodName(Map<Method, Set<Class<?>>> methodMap) {
+        Set<Method> methodsToRename = new HashSet<>();
+        for (Method method : methodMap.keySet()) {
+            if (methodMap.keySet()
+                    .stream()
+                    .filter(key -> key.getName().equals(method.getName()))
+                    .collect(Collectors.counting()) > 1L) {
+                methodsToRename.add(method);
+            }
+        }
+
+        return methodsToRename;
     }
 
 }

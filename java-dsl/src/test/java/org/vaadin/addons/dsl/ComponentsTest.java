@@ -3,16 +3,16 @@ package org.vaadin.addons.dsl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.vaadin.addons.dsl.Properties.disableOnClick;
-import static org.vaadin.addons.dsl.Properties.sizeFull;
-import static org.vaadin.addons.dsl.Properties.styleName;
-import static org.vaadin.addons.dsl.Properties.value;
 import static org.vaadin.addons.dsl.ComponentContainers.cssLayout;
 import static org.vaadin.addons.dsl.ComponentContainers.verticalLayout;
 import static org.vaadin.addons.dsl.Components.button;
 import static org.vaadin.addons.dsl.Components.textField;
 import static org.vaadin.addons.dsl.Listeners.onBlur;
 import static org.vaadin.addons.dsl.Listeners.onButtonClick;
+import static org.vaadin.addons.dsl.Properties.disableOnClick;
+import static org.vaadin.addons.dsl.Properties.sizeFull;
+import static org.vaadin.addons.dsl.Properties.styleName;
+import static org.vaadin.addons.dsl.Properties.value;
 
 import org.junit.Test;
 
