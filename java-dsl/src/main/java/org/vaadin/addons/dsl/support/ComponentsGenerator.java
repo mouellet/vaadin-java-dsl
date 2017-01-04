@@ -35,7 +35,7 @@ public class ComponentsGenerator extends AbstractGenerator {
                 .enumerateClassesByExtendingType("com.vaadin.ui", Component.class,
                     new FilterChain(
                             filterComponentContainers(),
-                            filterExcludedClasses(),
+                            filterExcludedClassesPattern(),
                             filterNonConcreteClasses(),
                             filterDeprecatedClasses(),
                             hasDefaultConstructor()))

@@ -1,9 +1,12 @@
 package org.vaadin.addons.dsl.support;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import com.openpojo.reflection.PojoClassFilter;
+import com.openpojo.reflection.filters.FilterChain;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.SingleComponentContainer;
 
@@ -34,8 +37,24 @@ public abstract class AbstractGenerator {
         return pojoClass -> !(pojoClass.extendz(ComponentContainer.class) || pojoClass.extendz(SingleComponentContainer.class));
     }
 
-    protected static PojoClassFilter filterExcludedClasses() {
+    protected static PojoClassFilter filterExcludedClassesPattern() {
         return pojoClass -> Pattern.compile("^((?!ColorPicker|DragAndDropWrapper).)*$").matcher(pojoClass.getName()).find();
+    }
+
+    protected static PojoClassFilter filterExcludedClasses(Class<?>... excludes) {
+        List<PojoClassFilter> filters = new ArrayList<>();
+        for (Class<?> exclude : excludes) {
+            filters.add(pojoClass -> !pojoClass.extendz(exclude));
+        }
+        return new FilterChain(filters.toArray(new PojoClassFilter[0]));
+    }
+
+    protected static PojoClassFilter filterIncludedClasses(Class<?>... includes) {
+        List<PojoClassFilter> filters = new ArrayList<>();
+        for (Class<?> include : includes) {
+            filters.add(pojoClass -> pojoClass.extendz(include));
+        }
+        return new FilterChain(filters.toArray(new PojoClassFilter[0]));
     }
 
     protected static PojoClassFilter filterNonConcreteClasses() {

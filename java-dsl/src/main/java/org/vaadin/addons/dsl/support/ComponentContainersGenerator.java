@@ -26,6 +26,7 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import com.squareup.javapoet.WildcardTypeName;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Window;
 
 public class ComponentContainersGenerator extends AbstractGenerator {
 
@@ -34,8 +35,9 @@ public class ComponentContainersGenerator extends AbstractGenerator {
         Set<PojoClass> classes = PojoClassFactory
                 .enumerateClassesByExtendingType("com.vaadin.ui", Component.class,
                     new FilterChain(
+                            filterExcludedClasses(Window.class),
                             filterNonComponnentContainers(),
-                            filterExcludedClasses(),
+                            filterExcludedClassesPattern(),
                             filterNonConcreteClasses(),
                             filterDeprecatedClasses(),
                             hasDefaultConstructor()))

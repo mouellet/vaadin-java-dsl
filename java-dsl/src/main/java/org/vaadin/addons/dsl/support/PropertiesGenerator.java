@@ -46,7 +46,7 @@ public class PropertiesGenerator extends AbstractGenerator {
                 .enumerateClassesByExtendingType("com.vaadin", Component.class,
                     new FilterChain(
                             filterComponentContainers(),
-                            filterExcludedClasses(),
+                            filterExcludedClassesPattern(),
                             filterNonConcreteClasses(),
                             filterDeprecatedClasses(),
                             hasDefaultConstructor()))

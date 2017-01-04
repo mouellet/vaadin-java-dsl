@@ -46,7 +46,7 @@ public class ListenerGenerator extends AbstractGenerator {
         Set<PojoClass> classes = PojoClassFactory
                 .enumerateClassesByExtendingType("com.vaadin", Component.class,
                     new FilterChain(
-                            filterExcludedClasses(),
+                            filterExcludedClassesPattern(),
                             filterNonConcreteClasses(),
                             filterDeprecatedClasses(),
                             hasDefaultConstructor()))

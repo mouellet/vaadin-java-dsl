@@ -14,7 +14,6 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
-import com.vaadin.ui.Window;
 import java.lang.SafeVarargs;
 import java.lang.SuppressWarnings;
 import org.vaadin.addons.dsl.core.ComponentNode;
@@ -164,17 +163,6 @@ public class ComponentContainers {
 
   @SafeVarargs
   public static <T extends VerticalSplitPanel> ComponentNode<T> verticalSplitPanel(final T instance,
-      final Node<? extends Component>... args) {
-    return new ComponentNode(instance, args);
-  }
-
-  @SafeVarargs
-  public static <T extends Window> ComponentNode<T> window(final Node<? extends Component>... args) {
-    return new ComponentNode(Window.class, args);
-  }
-
-  @SafeVarargs
-  public static <T extends Window> ComponentNode<T> window(final T instance,
       final Node<? extends Component>... args) {
     return new ComponentNode(instance, args);
   }
