@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import javax.lang.model.element.Modifier;
 
 import org.vaadin.addons.dsl.core.ComponentNode;
-import org.vaadin.addons.dsl.core.Node;
+import org.vaadin.addons.dsl.core.PropertyNode;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.filters.FilterChain;
@@ -77,7 +77,7 @@ public class ComponentsGenerator extends AbstractGenerator {
                 .addParameter(
                     ArrayTypeName.of(
                         ParameterizedTypeName.get(
-                            ClassName.get(Node.class), WildcardTypeName.supertypeOf(TypeVariableName.get("T")))),
+                            ClassName.get(PropertyNode.class), WildcardTypeName.supertypeOf(TypeVariableName.get("T")))),
                     "args", Modifier.FINAL)
                 .varargs()
                 .addStatement("return new ComponentNode($L.class, args)", pojoClass.getClazz().getSimpleName())
@@ -95,7 +95,7 @@ public class ComponentsGenerator extends AbstractGenerator {
                 .addParameter(
                     ArrayTypeName.of(
                         ParameterizedTypeName.get(
-                            ClassName.get(Node.class), WildcardTypeName.supertypeOf(TypeVariableName.get("T")))),
+                            ClassName.get(PropertyNode.class), WildcardTypeName.supertypeOf(TypeVariableName.get("T")))),
                     "args", Modifier.FINAL)
                 .varargs()
                 .addStatement("return new ComponentNode(instance, args)")
