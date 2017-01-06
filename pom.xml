@@ -7,7 +7,7 @@
     <groupId>org.vaadin.addons</groupId>
     <artifactId>java-dsl-root</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1.alpha1</version>
     <name>Java DSL Add-on for Vaadin Root Project</name>
 
     <prerequisites>
