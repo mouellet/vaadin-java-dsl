@@ -8,7 +8,7 @@
     <artifactId>java-dsl-root</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Java DSL Add-on for Vaadin Root Project</name>
+    <name>Java DSL for Vaadin Root Project</name>
 
     <prerequisites>
         <maven>3</maven>

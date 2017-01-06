@@ -1,6 +1,6 @@
-# Java DSL Add-on for Vaadin
+# Java DSL for Vaadin
 
-This add-on is domain-specific language (DSL) describing how to create Vaadin components, set their properties and compose layouts in pure Java.
+A domain-specific language (DSL) describing how to create Vaadin components, set their properties and compose layouts in pure Java.
 
 ## Getting started
 
@@ -112,6 +112,6 @@ Contributions are welcome, but there are no guarantees that they are accepted as
 
 ## License & Author
 
-Add-on is distributed under Apache License 2.0. For license terms, see LICENSE.txt.
+Distributed under Apache License 2.0. For license terms, see LICENSE.txt.
 
-Java DSL Add-on for Vaadin is written by Mathieu Ouellet
+Java DSL for Vaadin is written by Mathieu Ouellet

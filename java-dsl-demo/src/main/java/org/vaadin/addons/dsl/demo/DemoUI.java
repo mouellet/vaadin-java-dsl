@@ -21,7 +21,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 
 @Theme("valo")
-@Title("DSL Add-on Demo")
+@Title("Java DSL Demo")
 @SuppressWarnings("serial")
 public class DemoUI extends UI {
 

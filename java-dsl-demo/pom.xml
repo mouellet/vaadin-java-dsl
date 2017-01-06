@@ -8,7 +8,7 @@
     <artifactId>java-dsl-demo</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Java DSL Add-on for Vaadin Demo</name>
+    <name>Java DSL for Vaadin Demo</name>
 
     <prerequisites>
         <maven>3</maven>
@@ -32,7 +32,6 @@
         <url>git://github.com/mouellet/vaadin-java-dsl.git</url>
         <connection>scm:git:git://github.com/mouellet/vaadin-java-dsl.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:/mouellet/vaadin-java-dsl.git</developerConnection>
-        <tag>Java DSL Add-on for Vaadin</tag>
     </scm>
 
     <issueManagement>
