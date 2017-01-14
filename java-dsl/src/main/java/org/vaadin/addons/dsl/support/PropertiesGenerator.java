@@ -45,7 +45,6 @@ public class PropertiesGenerator extends AbstractGenerator {
         Set<PojoClass> classes = PojoClassFactory
                 .enumerateClassesByExtendingType("com.vaadin", Component.class,
                     new FilterChain(
-                            filterComponentContainers(),
                             filterExcludedClassesPattern(),
                             filterNonConcreteClasses(),
                             filterDeprecatedClasses(),

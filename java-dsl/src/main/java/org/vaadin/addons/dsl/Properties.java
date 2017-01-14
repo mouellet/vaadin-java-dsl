@@ -13,6 +13,7 @@ import com.vaadin.server.ClientConnector;
 import com.vaadin.server.ErrorHandler;
 import com.vaadin.server.ErrorMessage;
 import com.vaadin.server.Resource;
+import com.vaadin.server.Scrollable;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.BorderStyle;
 import com.vaadin.shared.ui.MultiSelectMode;
@@ -23,32 +24,42 @@ import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.shared.ui.table.CollapseMenuContent;
+import com.vaadin.shared.ui.window.WindowMode;
+import com.vaadin.shared.ui.window.WindowRole;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractEmbedded;
 import com.vaadin.ui.AbstractField;
 import com.vaadin.ui.AbstractMedia;
+import com.vaadin.ui.AbstractOrderedLayout;
 import com.vaadin.ui.AbstractSelect;
+import com.vaadin.ui.AbstractSplitPanel;
 import com.vaadin.ui.AbstractTextField;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Calendar;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Flash;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HasChildMeasurementHint;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Layout;
 import com.vaadin.ui.Link;
-import com.vaadin.ui.ListSelect;
+import com.vaadin.ui.LoginForm;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.PopupView;
 import com.vaadin.ui.ProgressBar;
+import com.vaadin.ui.SingleComponentContainer;
 import com.vaadin.ui.Slider;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextArea;
@@ -57,6 +68,7 @@ import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.Upload;
 import com.vaadin.ui.Video;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.components.calendar.CalendarComponentEvents;
 import com.vaadin.ui.components.calendar.event.CalendarEventProvider;
 import java.lang.Class;
@@ -90,6 +102,22 @@ public class Properties {
 
   public static <T extends Flash> PropertyNode<T> archive(String arg0) {
     return c -> c.setArchive(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> assistiveDescription(Component... arg0) {
+    return c -> c.setAssistiveDescription(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> assistivePostfix(String arg0) {
+    return c -> c.setAssistivePostfix(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> assistivePrefix(String arg0) {
+    return c -> c.setAssistivePrefix(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> assistiveRole(WindowRole arg0) {
+    return c -> c.setAssistiveRole(arg0);
   }
 
   public static <T extends PopupDateField> PropertyNode<T> assistiveText(String arg0) {
@@ -147,6 +175,14 @@ public class Properties {
 
   public static <T extends Button> PropertyNode<T> clickShortcut(int arg0, int... arg1) {
     return c -> c.setClickShortcut(arg0, arg1);
+  }
+
+  public static <T extends Window> PropertyNode<T> closable(boolean arg0) {
+    return c -> c.setClosable(arg0);
+  }
+
+  public static <T extends TabSheet> PropertyNode<T> closeHandler(TabSheet.CloseHandler arg0) {
+    return c -> c.setCloseHandler(arg0);
   }
 
   public static <T extends Flash> PropertyNode<T> codebase(String arg0) {
@@ -233,6 +269,11 @@ public class Properties {
     return c -> c.setColumns(arg0);
   }
 
+  public static <T extends Layout.AlignmentHandler & Component> PropertyNode<T> componentAlignment(Component arg0,
+      Alignment arg1) {
+    return c -> c.setComponentAlignment(arg0, arg1);
+  }
+
   public static <T extends AbstractComponent> PropertyNode<T> componentError(ErrorMessage arg0) {
     return c -> c.setComponentError(arg0);
   }
@@ -251,7 +292,7 @@ public class Properties {
     return c -> c.setContainerDataSource(arg0, arg1, arg2, arg3, arg4, arg5);
   }
 
-  public static <T extends PopupView> PropertyNode<T> content(PopupView.Content arg0) {
+  public static <T extends SingleComponentContainer> PropertyNode<T> content(Component arg0) {
     return c -> c.setContent(arg0);
   }
 
@@ -291,6 +332,14 @@ public class Properties {
     return c -> c.setCursorPosition(arg0);
   }
 
+  public static <T extends GridLayout> PropertyNode<T> cursorX(int arg0) {
+    return c -> c.setCursorX(arg0);
+  }
+
+  public static <T extends GridLayout> PropertyNode<T> cursorY(int arg0) {
+    return c -> c.setCursorY(arg0);
+  }
+
   public static <T extends AbstractComponent> PropertyNode<T> data(Object arg0) {
     return c -> c.setData(arg0);
   }
@@ -301,6 +350,10 @@ public class Properties {
 
   public static <T extends DateField> PropertyNode<T> dateOutOfRangeMessage(String arg0) {
     return c -> c.setDateOutOfRangeMessage(arg0);
+  }
+
+  public static <T extends Layout.AlignmentHandler & Component> PropertyNode<T> defaultComponentAlignment(Alignment arg0) {
+    return c -> c.setDefaultComponentAlignment(arg0);
   }
 
   public static <T extends Grid> PropertyNode<T> defaultHeaderRow(Grid.HeaderRow arg0) {
@@ -325,6 +378,10 @@ public class Properties {
 
   public static <T extends Table> PropertyNode<T> dragMode(Table.TableDragMode arg0) {
     return c -> c.setDragMode(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> draggable(boolean arg0) {
+    return c -> c.setDraggable(arg0);
   }
 
   public static <T extends Table> PropertyNode<T> dropHandler(DropHandler arg0) {
@@ -383,8 +440,17 @@ public class Properties {
     return c -> c.setEventProvider(arg0);
   }
 
+  public static <T extends AbstractOrderedLayout> PropertyNode<T> expandRatio(Component arg0,
+      float arg1) {
+    return c -> c.setExpandRatio(arg0, arg1);
+  }
+
   public static <T extends AbstractSelect.Filtering & Component> PropertyNode<T> filteringMode(FilteringMode arg0) {
     return c -> c.setFilteringMode(arg0);
+  }
+
+  public static <T extends AbstractSplitPanel> PropertyNode<T> firstComponent(Component arg0) {
+    return c -> c.setFirstComponent(arg0);
   }
 
   public static <T extends Calendar> PropertyNode<T> firstDayOfWeek(Integer arg0) {
@@ -407,7 +473,7 @@ public class Properties {
     return c -> c.setFrozenColumnCount(arg0);
   }
 
-  public static <T extends CalendarComponentEvents.EventResizeNotifier & Component> PropertyNode<T> handler(CalendarComponentEvents.EventResizeHandler arg0) {
+  public static <T extends CalendarComponentEvents.EventMoveNotifier & Component> PropertyNode<T> handler(CalendarComponentEvents.EventMoveHandler arg0) {
     return c -> c.setHandler(arg0);
   }
 
@@ -436,6 +502,10 @@ public class Properties {
     return c -> c.setHeightUndefined();
   }
 
+  public static <T extends GridLayout> PropertyNode<T> hideEmptyRowsAndColumns(boolean arg0) {
+    return c -> c.setHideEmptyRowsAndColumns(arg0);
+  }
+
   public static <T extends PopupView> PropertyNode<T> hideOnMouseOut(boolean arg0) {
     return c -> c.setHideOnMouseOut(arg0);
   }
@@ -444,7 +514,7 @@ public class Properties {
     return c -> c.setHierarchyColumn(arg0);
   }
 
-  public static <T extends Button> PropertyNode<T> htmlContentAllowed(boolean arg0) {
+  public static <T extends Tree> PropertyNode<T> htmlContentAllowed(boolean arg0) {
     return c -> c.setHtmlContentAllowed(arg0);
   }
 
@@ -520,7 +590,7 @@ public class Properties {
     return c -> c.setItemIconPropertyId(arg0);
   }
 
-  public static <T extends ComboBox> PropertyNode<T> itemStyleGenerator(ComboBox.ItemStyleGenerator arg0) {
+  public static <T extends Tree> PropertyNode<T> itemStyleGenerator(Tree.ItemStyleGenerator arg0) {
     return c -> c.setItemStyleGenerator(arg0);
   }
 
@@ -544,6 +614,18 @@ public class Properties {
     return c -> c.setLocale(arg0);
   }
 
+  public static <T extends AbstractSplitPanel> PropertyNode<T> locked(boolean arg0) {
+    return c -> c.setLocked(arg0);
+  }
+
+  public static <T extends LoginForm> PropertyNode<T> loginButtonCaption(String arg0) {
+    return c -> c.setLoginButtonCaption(arg0);
+  }
+
+  public static <T extends Layout.MarginHandler & Component> PropertyNode<T> margin(boolean arg0) {
+    return c -> c.setMargin(arg0);
+  }
+
   public static <T extends Slider> PropertyNode<T> max(double arg0) {
     return c -> c.setMax(arg0);
   }
@@ -552,12 +634,26 @@ public class Properties {
     return c -> c.setMaxLength(arg0);
   }
 
+  public static <T extends AbstractSplitPanel> PropertyNode<T> maxSplitPosition(float arg0,
+      Sizeable.Unit arg1) {
+    return c -> c.setMaxSplitPosition(arg0, arg1);
+  }
+
   public static <T extends Embedded> PropertyNode<T> mimeType(String arg0) {
     return c -> c.setMimeType(arg0);
   }
 
   public static <T extends Slider> PropertyNode<T> min(double arg0) {
     return c -> c.setMin(arg0);
+  }
+
+  public static <T extends AbstractSplitPanel> PropertyNode<T> minSplitPosition(float arg0,
+      Sizeable.Unit arg1) {
+    return c -> c.setMinSplitPosition(arg0, arg1);
+  }
+
+  public static <T extends Window> PropertyNode<T> modal(boolean arg0) {
+    return c -> c.setModal(arg0);
   }
 
   public static <T extends MenuBar> PropertyNode<T> moreMenuItem(MenuBar.MenuItem arg0) {
@@ -629,12 +725,28 @@ public class Properties {
     return c -> c.setParseErrorMessage(arg0);
   }
 
+  public static <T extends LoginForm> PropertyNode<T> passwordCaption(String arg0) {
+    return c -> c.setPasswordCaption(arg0);
+  }
+
   public static <T extends PopupView> PropertyNode<T> popupVisible(boolean arg0) {
     return c -> c.setPopupVisible(arg0);
   }
 
   public static <T extends ComboBox> PropertyNode<T> popupWidth(String arg0) {
     return c -> c.setPopupWidth(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> position(int arg0, int arg1) {
+    return c -> c.setPosition(arg0, arg1);
+  }
+
+  public static <T extends Window> PropertyNode<T> positionX(int arg0) {
+    return c -> c.setPositionX(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> positionY(int arg0) {
+    return c -> c.setPositionY(arg0);
   }
 
   public static <T extends Video> PropertyNode<T> poster(Resource arg0) {
@@ -673,6 +785,14 @@ public class Properties {
     return c -> c.setRequiredError(arg0);
   }
 
+  public static <T extends Window> PropertyNode<T> resizable(boolean arg0) {
+    return c -> c.setResizable(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> resizeLazy(boolean arg0) {
+    return c -> c.setResizeLazy(arg0);
+  }
+
   public static <T extends DateField> PropertyNode<T> resolution(Resolution arg0) {
     return c -> c.setResolution(arg0);
   }
@@ -693,6 +813,10 @@ public class Properties {
     return c -> c.setRowDescriptionGenerator(arg0);
   }
 
+  public static <T extends GridLayout> PropertyNode<T> rowExpandRatio(int arg0, float arg1) {
+    return c -> c.setRowExpandRatio(arg0, arg1);
+  }
+
   public static <T extends Table> PropertyNode<T> rowGenerator(Table.RowGenerator arg0) {
     return c -> c.setRowGenerator(arg0);
   }
@@ -705,16 +829,32 @@ public class Properties {
     return c -> c.setRowStyleGenerator(arg0);
   }
 
-  public static <T extends ListSelect> PropertyNode<T> rows(int arg0) {
+  public static <T extends GridLayout> PropertyNode<T> rows(int arg0) {
     return c -> c.setRows(arg0);
+  }
+
+  public static <T extends Scrollable & Component> PropertyNode<T> scrollLeft(int arg0) {
+    return c -> c.setScrollLeft(arg0);
   }
 
   public static <T extends ComboBox> PropertyNode<T> scrollToSelectedItem(boolean arg0) {
     return c -> c.setScrollToSelectedItem(arg0);
   }
 
+  public static <T extends Scrollable & Component> PropertyNode<T> scrollTop(int arg0) {
+    return c -> c.setScrollTop(arg0);
+  }
+
+  public static <T extends AbstractSplitPanel> PropertyNode<T> secondComponent(Component arg0) {
+    return c -> c.setSecondComponent(arg0);
+  }
+
   public static <T extends Table> PropertyNode<T> selectable(boolean arg0) {
     return c -> c.setSelectable(arg0);
+  }
+
+  public static <T extends TabSheet> PropertyNode<T> selectedTab(Component arg0) {
+    return c -> c.setSelectedTab(arg0);
   }
 
   public static <T extends Grid> PropertyNode<T> selectionMode(Grid.SelectionMode arg0) {
@@ -769,6 +909,24 @@ public class Properties {
     return c -> c.setSources(arg0);
   }
 
+  public static <T extends Layout.SpacingHandler & Component> PropertyNode<T> spacing(boolean arg0) {
+    return c -> c.setSpacing(arg0);
+  }
+
+  public static <T extends AbstractSplitPanel> PropertyNode<T> splitPosition(float arg0) {
+    return c -> c.setSplitPosition(arg0);
+  }
+
+  public static <T extends AbstractSplitPanel> PropertyNode<T> splitPosition(float arg0,
+      boolean arg1) {
+    return c -> c.setSplitPosition(arg0, arg1);
+  }
+
+  public static <T extends AbstractSplitPanel> PropertyNode<T> splitPosition(float arg0,
+      Sizeable.Unit arg1, boolean arg2) {
+    return c -> c.setSplitPosition(arg0, arg1, arg2);
+  }
+
   public static <T extends Flash> PropertyNode<T> standby(String arg0) {
     return c -> c.setStandby(arg0);
   }
@@ -785,12 +943,36 @@ public class Properties {
     return c -> c.setStyleName(arg0, arg1);
   }
 
+  public static <T extends TabSheet> PropertyNode<T> tabCaptionsAsHtml(boolean arg0) {
+    return c -> c.setTabCaptionsAsHtml(arg0);
+  }
+
   public static <T extends Component.Focusable> PropertyNode<T> tabIndex(int arg0) {
     return c -> c.setTabIndex(arg0);
   }
 
+  public static <T extends TabSheet> PropertyNode<T> tabPosition(TabSheet.Tab arg0, int arg1) {
+    return c -> c.setTabPosition(arg0, arg1);
+  }
+
+  public static <T extends Window> PropertyNode<T> tabStopBottomAssistiveText(String arg0) {
+    return c -> c.setTabStopBottomAssistiveText(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> tabStopEnabled(boolean arg0) {
+    return c -> c.setTabStopEnabled(arg0);
+  }
+
+  public static <T extends Window> PropertyNode<T> tabStopTopAssistiveText(String arg0) {
+    return c -> c.setTabStopTopAssistiveText(arg0);
+  }
+
   public static <T extends Table> PropertyNode<T> tableFieldFactory(TableFieldFactory arg0) {
     return c -> c.setTableFieldFactory(arg0);
+  }
+
+  public static <T extends TabSheet> PropertyNode<T> tabsVisible(boolean arg0) {
+    return c -> c.setTabsVisible(arg0);
   }
 
   public static <T extends Link> PropertyNode<T> targetBorder(BorderStyle arg0) {
@@ -807,6 +989,14 @@ public class Properties {
 
   public static <T extends Link> PropertyNode<T> targetWidth(int arg0) {
     return c -> c.setTargetWidth(arg0);
+  }
+
+  public static <T extends CustomLayout> PropertyNode<T> templateContents(String arg0) {
+    return c -> c.setTemplateContents(arg0);
+  }
+
+  public static <T extends CustomLayout> PropertyNode<T> templateName(String arg0) {
+    return c -> c.setTemplateName(arg0);
   }
 
   public static <T extends AbstractTextField> PropertyNode<T> textChangeEventMode(AbstractTextField.TextChangeEventMode arg0) {
@@ -835,6 +1025,10 @@ public class Properties {
 
   public static <T extends Embedded> PropertyNode<T> type(int arg0) {
     return c -> c.setType(arg0);
+  }
+
+  public static <T extends LoginForm> PropertyNode<T> usernameCaption(String arg0) {
+    return c -> c.setUsernameCaption(arg0);
   }
 
   public static <T extends AbstractField> PropertyNode<T> validationVisible(boolean arg0) {
@@ -868,6 +1062,10 @@ public class Properties {
 
   public static <T extends Sizeable & Component> PropertyNode<T> widthUndefined() {
     return c -> c.setWidthUndefined();
+  }
+
+  public static <T extends Window> PropertyNode<T> windowMode(WindowMode arg0) {
+    return c -> c.setWindowMode(arg0);
   }
 
   public static <T extends TextArea> PropertyNode<T> wordwrap(boolean arg0) {
