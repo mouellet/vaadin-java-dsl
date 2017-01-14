@@ -115,7 +115,7 @@ public class PropertiesGenerator extends AbstractGenerator {
         methodSpecBuilder.returns(ParameterizedTypeName.get(ClassName.get(PropertyNode.class), TypeVariableName.get("T")));
 
         for (Parameter param : method.getParameters()) {
-            methodSpecBuilder.addParameter(param.getType(), param.getName());
+            methodSpecBuilder.addParameter(param.getType(), param.getName(), Modifier.FINAL);
             if (param.getType().isArray()) {
                 methodSpecBuilder.varargs();
             }
