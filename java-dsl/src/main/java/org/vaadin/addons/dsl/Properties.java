@@ -16,6 +16,7 @@ import com.vaadin.server.Resource;
 import com.vaadin.server.Scrollable;
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.BorderStyle;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.MultiSelectMode;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.shared.ui.datefield.Resolution;
@@ -26,6 +27,7 @@ import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.shared.ui.table.CollapseMenuContent;
 import com.vaadin.shared.ui.window.WindowMode;
 import com.vaadin.shared.ui.window.WindowRole;
+import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.AbstractEmbedded;
 import com.vaadin.ui.AbstractField;
@@ -72,6 +74,8 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.components.calendar.CalendarComponentEvents;
 import com.vaadin.ui.components.calendar.event.CalendarEventProvider;
 import java.lang.Class;
+import java.lang.Double;
+import java.lang.Float;
 import java.lang.Integer;
 import java.lang.Object;
 import java.lang.String;
@@ -156,6 +160,10 @@ public class Properties {
     return c -> c.setCellDescriptionGenerator(arg0);
   }
 
+  public static <T extends Grid> PropertyNode<T> cellStyleGenerator(final Grid.CellStyleGenerator arg0) {
+    return c -> c.setCellStyleGenerator(arg0);
+  }
+
   public static <T extends Table> PropertyNode<T> cellStyleGenerator(final Table.CellStyleGenerator arg0) {
     return c -> c.setCellStyleGenerator(arg0);
   }
@@ -226,6 +234,11 @@ public class Properties {
     return c -> c.setColumnCollapsingAllowed(arg0);
   }
 
+  public static <T extends GridLayout> PropertyNode<T> columnExpandRatio(final int arg0,
+      final float arg1) {
+    return c -> c.setColumnExpandRatio(arg0, arg1);
+  }
+
   public static <T extends Table> PropertyNode<T> columnExpandRatio(final Object arg0,
       final float arg1) {
     return c -> c.setColumnExpandRatio(arg0, arg1);
@@ -274,6 +287,10 @@ public class Properties {
     return c -> c.setColumnWidth(arg0, arg1);
   }
 
+  public static <T extends Grid> PropertyNode<T> columns(final Object... arg0) {
+    return c -> c.setColumns(arg0);
+  }
+
   public static <T extends AbstractTextField> PropertyNode<T> columns(final int arg0) {
     return c -> c.setColumns(arg0);
   }
@@ -288,6 +305,10 @@ public class Properties {
   }
 
   public static <T extends Container.Viewer & Component> PropertyNode<T> containerDataSource(final Container arg0) {
+    return c -> c.setContainerDataSource(arg0);
+  }
+
+  public static <T extends Calendar> PropertyNode<T> containerDataSource(final Container.Indexed arg0) {
     return c -> c.setContainerDataSource(arg0);
   }
 
@@ -306,6 +327,10 @@ public class Properties {
     return c -> c.setContent(arg0);
   }
 
+  public static <T extends PopupView> PropertyNode<T> content(final PopupView.Content arg0) {
+    return c -> c.setContent(arg0);
+  }
+
   public static <T extends Label> PropertyNode<T> contentMode(final ContentMode arg0) {
     return c -> c.setContentMode(arg0);
   }
@@ -316,6 +341,10 @@ public class Properties {
 
   public static <T extends AbstractField> PropertyNode<T> convertedValue(final Object arg0) {
     return c -> c.setConvertedValue(arg0);
+  }
+
+  public static <T extends AbstractField> PropertyNode<T> converter(final Converter arg0) {
+    return c -> c.setConverter(arg0);
   }
 
   public static <T extends AbstractField> PropertyNode<T> converter(final Class arg0) {
@@ -389,6 +418,10 @@ public class Properties {
   }
 
   public static <T extends Table> PropertyNode<T> dragMode(final Table.TableDragMode arg0) {
+    return c -> c.setDragMode(arg0);
+  }
+
+  public static <T extends Tree> PropertyNode<T> dragMode(final Tree.TreeDragMode arg0) {
     return c -> c.setDragMode(arg0);
   }
 
@@ -483,6 +516,34 @@ public class Properties {
 
   public static <T extends Grid> PropertyNode<T> frozenColumnCount(final int arg0) {
     return c -> c.setFrozenColumnCount(arg0);
+  }
+
+  public static <T extends CalendarComponentEvents.NavigationNotifier & Component> PropertyNode<T> handler(final CalendarComponentEvents.BackwardHandler arg0) {
+    return c -> c.setHandler(arg0);
+  }
+
+  public static <T extends CalendarComponentEvents.NavigationNotifier & Component> PropertyNode<T> handler(final CalendarComponentEvents.DateClickHandler arg0) {
+    return c -> c.setHandler(arg0);
+  }
+
+  public static <T extends CalendarComponentEvents.NavigationNotifier & Component> PropertyNode<T> handler(final CalendarComponentEvents.EventClickHandler arg0) {
+    return c -> c.setHandler(arg0);
+  }
+
+  public static <T extends CalendarComponentEvents.EventMoveNotifier & Component> PropertyNode<T> handler(final CalendarComponentEvents.EventMoveHandler arg0) {
+    return c -> c.setHandler(arg0);
+  }
+
+  public static <T extends CalendarComponentEvents.EventResizeNotifier & Component> PropertyNode<T> handler(final CalendarComponentEvents.EventResizeHandler arg0) {
+    return c -> c.setHandler(arg0);
+  }
+
+  public static <T extends CalendarComponentEvents.NavigationNotifier & Component> PropertyNode<T> handler(final CalendarComponentEvents.ForwardHandler arg0) {
+    return c -> c.setHandler(arg0);
+  }
+
+  public static <T extends CalendarComponentEvents.RangeSelectNotifier & Component> PropertyNode<T> handler(final CalendarComponentEvents.RangeSelectHandler arg0) {
+    return c -> c.setHandler(arg0);
   }
 
   public static <T extends CalendarComponentEvents.NavigationNotifier & Component> PropertyNode<T> handler(final CalendarComponentEvents.WeekClickHandler arg0) {
@@ -607,6 +668,10 @@ public class Properties {
     return c -> c.setItemIconPropertyId(arg0);
   }
 
+  public static <T extends ComboBox> PropertyNode<T> itemStyleGenerator(final ComboBox.ItemStyleGenerator arg0) {
+    return c -> c.setItemStyleGenerator(arg0);
+  }
+
   public static <T extends Tree> PropertyNode<T> itemStyleGenerator(final Tree.ItemStyleGenerator arg0) {
     return c -> c.setItemStyleGenerator(arg0);
   }
@@ -640,6 +705,10 @@ public class Properties {
   }
 
   public static <T extends Layout.MarginHandler & Component> PropertyNode<T> margin(final boolean arg0) {
+    return c -> c.setMargin(arg0);
+  }
+
+  public static <T extends Layout.MarginHandler & Component> PropertyNode<T> margin(final MarginInfo arg0) {
     return c -> c.setMargin(arg0);
   }
 
@@ -754,6 +823,11 @@ public class Properties {
     return c -> c.setPopupWidth(arg0);
   }
 
+  public static <T extends AbsoluteLayout> PropertyNode<T> position(final Component arg0,
+      final AbsoluteLayout.ComponentPosition arg1) {
+    return c -> c.setPosition(arg0, arg1);
+  }
+
   public static <T extends Window> PropertyNode<T> position(final int arg0, final int arg1) {
     return c -> c.setPosition(arg0, arg1);
   }
@@ -811,6 +885,10 @@ public class Properties {
   }
 
   public static <T extends DateField> PropertyNode<T> resolution(final Resolution arg0) {
+    return c -> c.setResolution(arg0);
+  }
+
+  public static <T extends Slider> PropertyNode<T> resolution(final int arg0) {
     return c -> c.setResolution(arg0);
   }
 
@@ -875,6 +953,14 @@ public class Properties {
     return c -> c.setSelectedTab(arg0);
   }
 
+  public static <T extends TabSheet> PropertyNode<T> selectedTab(final TabSheet.Tab arg0) {
+    return c -> c.setSelectedTab(arg0);
+  }
+
+  public static <T extends TabSheet> PropertyNode<T> selectedTab(final int arg0) {
+    return c -> c.setSelectedTab(arg0);
+  }
+
   public static <T extends Grid> PropertyNode<T> selectionMode(final Grid.SelectionMode arg0) {
     return c -> c.setSelectionMode(arg0);
   }
@@ -934,6 +1020,11 @@ public class Properties {
 
   public static <T extends AbstractSplitPanel> PropertyNode<T> splitPosition(final float arg0) {
     return c -> c.setSplitPosition(arg0);
+  }
+
+  public static <T extends AbstractSplitPanel> PropertyNode<T> splitPosition(final float arg0,
+      final boolean arg1) {
+    return c -> c.setSplitPosition(arg0, arg1);
   }
 
   public static <T extends AbstractSplitPanel> PropertyNode<T> splitPosition(final float arg0,
@@ -1056,7 +1147,19 @@ public class Properties {
     return c -> c.setValidationVisible(arg0);
   }
 
+  public static <T extends Slider> PropertyNode<T> value(final Double arg0) {
+    return c -> c.setValue(arg0);
+  }
+
+  public static <T extends ProgressBar> PropertyNode<T> value(final Float arg0) {
+    return c -> c.setValue(arg0);
+  }
+
   public static <T extends Property & Component> PropertyNode<T> value(final Object arg0) {
+    return c -> c.setValue(arg0);
+  }
+
+  public static <T extends AbstractTextField> PropertyNode<T> value(final String arg0) {
     return c -> c.setValue(arg0);
   }
 

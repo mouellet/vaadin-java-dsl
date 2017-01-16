@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -56,6 +57,11 @@ public class PropertiesGenerator extends AbstractGenerator {
             return new CompareToBuilder()
                     .append(o1.getName(), o2.getName())
                     .append(o1.getParameterCount(), o2.getParameterCount())
+                    .append(o1.getParameterTypes(), o2.getParameterTypes(), (Comparator<Class<?>>) (p1, p2) -> {
+                        return new CompareToBuilder()
+                                .append(p1.getName(), p2.getName())
+                                .toComparison();
+                    })
                     .toComparison();
         });
 
@@ -94,6 +100,8 @@ public class PropertiesGenerator extends AbstractGenerator {
                 .build();
 
         javaFile.writeTo(new File("src/main/java"));
+
+        System.out.println(methodSpecs.size());
     }
 
     private static MethodSpec buildPropertySetterMethodSpec(Entry<Method, Set<Class<?>>> entry) {
