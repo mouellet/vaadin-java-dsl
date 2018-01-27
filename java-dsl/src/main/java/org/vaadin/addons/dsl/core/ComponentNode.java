@@ -40,19 +40,19 @@ public class ComponentNode<T extends Component> implements Node<T> {
     }
 
     public Class<T> getComponentClass() {
-        return componentClass;
+        return this.componentClass;
     }
 
     public WeakReference<T> getReference() {
-        return reference;
+        return this.reference;
     }
 
     public List<ComponentNode> getChildren() {
-        return Collections.unmodifiableList(children);
+        return Collections.unmodifiableList(this.children);
     }
 
     public List<PropertyNode> getProperties() {
-        return Collections.unmodifiableList(properties);
+        return Collections.unmodifiableList(this.properties);
     }
 
     public T get() {
